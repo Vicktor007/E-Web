@@ -6,7 +6,10 @@ import { selectIsLoggedIn } from "../../../redux/features/auth/authSlice";
 import { getProduct } from "../../../redux/features/product/productSlice";
 import Card from "../../card/Card";
 import {SpinnerImg} from "../../loader/Loader";
+import calculateExpiryDate from '../../../utilities/expiry';
+import stockStatus from '../../../utilities/stockStatus';
 import "./ProductDetail.scss";
+import { toast } from "react-toastify";
 
 
 
@@ -21,12 +24,32 @@ const ProductDetail = () => {
     (state) => state.product
   );
 
-  const stockStatus = (quantity) => {
-    if (quantity > 0) {
-      return <span className="--color-success">In Stock</span>;
-    }
-    return <span className="--color-danger">Out Of Stock</span>;
-  };
+  
+
+  
+let expiryDate = "";
+
+if (product) {
+expiryDate = calculateExpiryDate(product.expiry_date);
+}
+
+
+let expiryString = "";
+if (expiryDate !== "expired") {
+  if (expiryDate.years > 0) {
+    expiryString += `${expiryDate.years} ${expiryDate.years > 1 ? 'years' : 'year'}, `;
+  }
+  if (expiryDate.months > 0) {
+    expiryString += `${expiryDate.months} ${expiryDate.months > 1 ? 'months' : 'month'}, `;
+  }
+  expiryString += `${expiryDate.days} ${expiryDate.days > 1 ? 'days' : 'day'}`;
+} else {
+  expiryString = "expired";
+}
+
+  
+let displayExpiryDate = expiryDate === "expired" ? "expired" : expiryString;
+
 
   useEffect(() => {
     if (isLoggedIn === true) {
@@ -34,12 +57,12 @@ const ProductDetail = () => {
     }
 
     if (isError) {
-      console.log(message);
+      toast.message("Something went rong, please reload the page");
     }
   }, [isLoggedIn, isError, message, dispatch,id]);
 
   return (
-    <div className="product-detail">
+    <div className="product-detail --pad">
       <h3 className="--mt">Product Detail</h3>
       {isLoading && <SpinnerImg classes="spinner" />}
       <Card cardClass="card">
@@ -47,14 +70,18 @@ const ProductDetail = () => {
         {product && (
           <div className="detail">
             <Card cardClass="group image-card">
-              {product?.image ? (
-                <img
-                  src={product.image.filePath}
-                  alt={product.image.fileName}
-                />
+            {isLoading ? (
+              <SpinnerImg classes="spinner-visibility"/>
               ) : (
-                <p>No image set for this product</p>
-              )}
+            product?.image ? (
+            <img
+           src={product.image.filePath}
+           alt={product.image.fileName}
+          />
+          ) : (
+          <p>No image set for this product</p>
+           )
+           )}
             </Card>
             <h4>Product Availability: {stockStatus(product.quantity)}</h4>
             <hr />
@@ -78,6 +105,17 @@ const ProductDetail = () => {
               <b>&rarr; Total Value in stock : </b> {"$"}
               {product.price * product.quantity}
             </p>
+            <p>
+              <b>&rarr; Production Date : </b> 
+              {product.production_date}
+            </p>
+            <p>
+  <b>&rarr; Expiry Date : </b> {product.expiry_date} </p>
+            <p>
+  <b>&rarr; Expires in : </b> 
+  {displayExpiryDate}
+</p>
+
             <hr />
             <p>{product.description}</p>
             
@@ -90,7 +128,7 @@ const ProductDetail = () => {
               Last Updated: {product.updatedAt.toLocaleString("en-US")}
             </code>
             <Link to={`/edit-product/${id}`} className="edit" >
-            Edit
+            Edit Product
             </Link>
           </div>
           

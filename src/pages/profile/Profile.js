@@ -64,7 +64,7 @@ const Profile = () => {
   
 
   return (
-    <div className="profile --my2">
+    <div className="profile --my2 --pad displayflex">
       {isLoading && <SpinnerImg />}
       <>
         {!isLoading && profile === null ? (

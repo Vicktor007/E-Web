@@ -87,7 +87,7 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="profile --my2" id="top">
+    <div className="profile --my2 displayflex" id="top">
       {isLoading && <Loader />}
 
       <Card cardClass={"card --flex-dir-column"}>
@@ -111,7 +111,7 @@ const EditProfile = () => {
               <br />
               <code>Email cannot be changed.</code>
             </p>
-            <p>
+            {/* <p>
               <label>Phone:</label>
               <input
                 type="text"
@@ -119,7 +119,7 @@ const EditProfile = () => {
                 value={profile?.phone}
                 onChange={handleInputChange}
               />
-            </p>
+            </p> */}
             <p>
               <label>Bio:</label>
               <textarea

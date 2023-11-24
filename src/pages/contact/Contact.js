@@ -28,9 +28,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact">
+    <div className="contact displayflex">
       <h3 className="--mt">Contact Us</h3>
-      <div className="section">
+      <div className="section displayflex">
         <form onSubmit={sendEmail}>
           <Card cardClass="card">
             <label>Subject</label>

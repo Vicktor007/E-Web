@@ -13,6 +13,8 @@ const initialState = {
   category: "",
   quantity: "",
   price: "",
+  production_date: "",
+  expiry_date: "",
   description: ""
 };
 
@@ -26,7 +28,7 @@ const AddProduct = () => {
 
   const isLoading = useSelector(selectIsLoading);
 
-  const { name, category, price, quantity, description } = product;
+  const { name, category, price, quantity, production_date, expiry_date, description } = product;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -53,6 +55,8 @@ const AddProduct = () => {
     formData.append("category", category);
     formData.append("quantity", Number(quantity));
     formData.append("price", price);
+    formData.append("production_date", production_date);
+    formData.append("expiry_date", expiry_date);
     formData.append("description", description);
     formData.append("image", productImage);
 
@@ -64,7 +68,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div>
+    <div className="--pad displayflex">
       {isLoading && <Loader />}
       <h3 className="--mt">Add New Product</h3>
       <ProductForm

@@ -1,65 +1,119 @@
-import React, { useState } from "react";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import React from "react";
+import { BiLogIn, BiLogOut } from "react-icons/bi";
+import {  MdOutlineContactSupport, MdOutlineLocalGroceryStore, MdOutlinePersonAddAlt } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import { GoInfo } from "react-icons/go";
 import { NavLink } from "react-router-dom";
+import Logout from "../logout/Logout";
+import { ShowOnLogin, ShowOnLogout } from "../protect/HiddenLink";
+
 
 const activeLink = ({ isActive }) => (isActive ? "active" : "link");
-const activeSublink = ({ isActive }) => (isActive ? "active" : "link");
+// const activeSublink = ({ isActive }) => (isActive ? "active" : "link");
 
-const SidebarItem = ({ item, isOpen }) => {
-  const [expandMenu, setExpandMenu] = useState(false);
+const SidebarItem = ({ isOpen }) => {
+  
 
-  if (item.childrens) {
-    return (
-      <div
-        className={
-          expandMenu ? "sidebar-item s-parent open" : "sidebar-item s-parent"
-        }
-      >
-        <div className="sidebar-title">
-          <span>
-            {item.icon && <div className="icon">{item.icon}</div>}
-            {isOpen && <div>{item.title}</div>}
-          </span>
-          <MdKeyboardArrowRight
-            size={25}
-            className="arrow-icon"
-            onClick={() => setExpandMenu(!expandMenu)}
-          />
-        </div>
-        <div className="sidebar-content">
-          {item.childrens.map((child, index) => {
-            return (
-              <div key={index} className="s-child">
-                <NavLink to={child.path} className={activeSublink}>
-                  <div className="sidebar-item">
-                    <div className="sidebar-title">
-                      <span>
-                        {child.icon && <div className="icon">{child.icon}</div>}
-                        {isOpen && <div>{child.title}</div>}
-                      </span>
-                    </div>
-                  </div>
-                </NavLink>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <NavLink to={item.path} className={activeLink}>
-        <div className="sidebar-item s-parent">
+  return (
+     <div className="navbar-nav bg-general ">
+        <ShowOnLogout>
+            <NavLink
+            to={`/register/`}
+            className={ activeLink }
+          >
+            <div className="sidebar-item s-parent">
           <div className="sidebar-title">
-            <span>
-              {item.icon && <div className="icon">{item.icon}</div>}
-              {isOpen && <div>{item.title}</div>}
-            </span>
-          </div>
+           <span>
+                <MdOutlinePersonAddAlt className="icon"/>
+                {isOpen && <div>Register</div>}
+             </span>
+         </div>
         </div>
-      </NavLink>
+            
+          </NavLink>
+          <NavLink
+            to={`/login/`}
+            className={ activeLink }
+          >
+            <div className="sidebar-item s-parent">
+          <div className="sidebar-title">
+           <span>
+                <BiLogIn className="icon"/>
+                {isOpen && <div>Login</div>}
+             </span>
+         </div>
+        </div>
+           
+          </NavLink>
+          </ShowOnLogout>
+        
+          <ShowOnLogin>
+          <NavLink
+            to={`/profile/`}
+            className={ activeLink }
+          >
+            <div className="sidebar-item s-parent">
+          <div className="sidebar-title">
+           <span>
+                <CgProfile className="icon"/>
+              {isOpen && <div>Profile</div>}
+             </span>
+         </div>
+        </div>
+            
+          </NavLink>
+          <NavLink
+            to={`/dashboard/`}
+            className={ activeLink }
+          >
+           <div className="sidebar-item s-parent">
+          <div className="sidebar-title">
+           <span>
+                <MdOutlineLocalGroceryStore className="icon"/>
+                {isOpen && <div>Store</div>}
+             </span>
+         </div>
+        </div>
+          </NavLink>
+           
+          </ShowOnLogin>
+          <NavLink
+            to={`/about/`}
+            className={ activeLink }
+          >
+            <div className="sidebar-item s-parent">
+          <div className="sidebar-title">
+           <span>
+                <GoInfo className="icon"/>
+                {isOpen && <div>About</div>}
+             </span>
+         </div>
+        </div>
+          </NavLink>
+            <ShowOnLogin>
+            <NavLink
+              to={`/contact-us/`}
+              className={ activeLink }
+            >
+             <div className="sidebar-item s-parent">
+          <div className="sidebar-title">
+           <span>
+                <MdOutlineContactSupport className="icon"/>
+                {isOpen && <div>Contact</div>}
+             </span>
+         </div>
+        </div>
+            </NavLink>
+            
+                
+                 <Logout isOpen={isOpen}/>
+             
+           
+            </ShowOnLogin>
+            </div> 
+
     );
   }
-};
+
 
 export default SidebarItem;

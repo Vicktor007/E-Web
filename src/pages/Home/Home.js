@@ -1,9 +1,8 @@
 import React from "react";
-import { RiEmphasis } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import "./Home.scss";
 import heroImg from "../../assets/inv-img.png";
-import { ShowOnLogin, ShowOnLogout } from "../../components/protect/HiddenLink";
+import { ShowOnLogout } from "../../components/protect/HiddenLink";
 import useHomeRedirectDeletedUser from "../../customHook/useHomeRedirectDeletedUser";
 
 const Home = () => {
@@ -13,39 +12,7 @@ const Home = () => {
   
 
   return (
-    <div className="home">
-      <nav className="container --flex-between ">
-        <div className="logo">
-             <RiEmphasis size={35}/>
-
-        </div>
-
-        <ul className="home-links">
-        
-
-
-          <ShowOnLogout>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-          </ShowOnLogout>
-          <ShowOnLogout>
-            <li>
-              
-                <Link to="/login"className="--btn --btn-primary">Login</Link>
-              
-            </li>
-          </ShowOnLogout>
-          <ShowOnLogin>
-            <li>
-              
-                <Link to="/dashboard" className="--btn --btn-primary">Dashboard</Link>
-              
-            </li>
-          </ShowOnLogin>
-        </ul>
-      </nav>
-      {/* HERO SECTION */}
+    <div className="home displayflex-row">
       <section className="container hero">
         <div className="hero-text">
           <h2>Inventory {"&"} Stock Management Solution</h2>

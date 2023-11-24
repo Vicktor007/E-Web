@@ -3,22 +3,28 @@ import "./ProductSummary.scss";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { BsCart4, BsCartX } from "react-icons/bs";
 import { BiCategory } from "react-icons/bi";
+import { LuBadgeX } from "react-icons/lu";
 import InfoBox from "../../infoBox/InfoBox";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CALC_CATEGORY,
+  CALC_EXPIRED_PRODUCTS,
   CALC_OUTOFSTOCK,
   CALC_STORE_VALUE,
   selectCategory,
+  selectExpiredProducts,
   selectOutOfStock,
   selectTotalStoreValue,
 } from "../../../redux/features/product/productSlice";
+import { Link } from "react-router-dom";
+import { MdAddShoppingCart } from "react-icons/md";
 
 // Icons
 const earningIcon = <AiFillDollarCircle size={40} color="#fff" />;
 const productIcon = <BsCart4 size={40} color="#fff" />;
 const categoryIcon = <BiCategory size={40} color="#fff" />;
 const outOfStockIcon = <BsCartX size={40} color="#fff" />;
+const expiredProductsIcon = <LuBadgeX size={40} color="#fff" /> 
 
 // Format Amount
 export const formatNumbers = (x) => {
@@ -30,11 +36,13 @@ const ProductSummary = ({ products }) => {
   const totalStoreValue = useSelector(selectTotalStoreValue);
   const outOfStock = useSelector(selectOutOfStock);
   const category = useSelector(selectCategory);
+  const expired_products = useSelector(selectExpiredProducts)
 
   useEffect(() => {
     dispatch(CALC_STORE_VALUE(products));
     dispatch(CALC_OUTOFSTOCK(products));
     dispatch(CALC_CATEGORY(products));
+    dispatch(CALC_EXPIRED_PRODUCTS(products));
   }, [dispatch, products]);
 
   return (
@@ -65,7 +73,15 @@ const ProductSummary = ({ products }) => {
           count={category.length}
           bgColor="card4"
         />
+        <InfoBox
+          icon={expiredProductsIcon}
+          title={"Expired Products"}
+          count={expired_products}
+          bgColor="card3"
+        />
       </div>
+
+      <Link to={"/add-product/"}><button className="button"> <MdAddShoppingCart size={35}/>Add Product</button></Link>
     </div>
   );
 };

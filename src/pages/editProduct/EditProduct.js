@@ -56,12 +56,14 @@ const EditProduct = () => {
     formData.append("category", product?.category);
     formData.append("quantity", product?.quantity);
     formData.append("price", product?.price);
+    formData.append("production_date", product?.production_date);
+    formData.append("expiry_date", product?.expiry_date);
     formData.append("description", product?.description);
     if (productImage) {
       formData.append("image", productImage);
     }
 
-    console.log(...formData);
+    // console.log(...formData);
 
     await dispatch(updateProduct({ id, formData }));
     await dispatch(getProducts());
@@ -69,7 +71,7 @@ const EditProduct = () => {
   };
 
   return (
-    <div>
+    <div className="width --pad displayflex">
       {isLoading && <Loader />}
       <h3 className="--mt">Edit Product</h3>
       <ProductForm

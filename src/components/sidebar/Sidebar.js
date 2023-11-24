@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import "./Sidebar.scss";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { RiEmphasis } from "react-icons/ri";
-import menu from "../../data/sidebar";
 import SidebarItem from "./SidebarItem";
 import { useNavigate } from "react-router-dom";
 
+
 const Sidebar = ({ children }) => {
+
+
+  
+
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
@@ -34,9 +38,13 @@ const Sidebar = ({ children }) => {
             <HiMenuAlt3 onClick={toggle} />
           </div>
         </div>
-        {menu.map((item, index) => {
-          return <SidebarItem key={index} item={item} isOpen={isOpen} />;
-        })}
+        <div className="navbar-nav bg-general ">
+        
+            
+          <SidebarItem isOpen={isOpen}/>
+        
+            </div>
+        
       </div>
 
       <main

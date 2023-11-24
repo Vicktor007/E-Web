@@ -11,6 +11,7 @@ const initialState = {
   message: "",
   totalStoreValue: 0,
   outOfStock: 0,
+  expired_products: 0,
   category: [],
 };
 
@@ -152,6 +153,19 @@ const productSlice = createSlice({
       const uniqueCategory = [...new Set(array)];
       state.category = uniqueCategory;
     },
+    CALC_EXPIRED_PRODUCTS(state, action) {
+      const products = action.payload;
+      let count = 0;
+      products.forEach((item) => {
+        const expiryDate = new Date(item.expiry_date);
+        const today = new Date();
+        if (expiryDate < today) {
+          count += 1;
+        }
+      });
+      state.expired_products = count;
+    },
+    
   },
   extraReducers: (builder) => {
     builder
@@ -236,7 +250,7 @@ const productSlice = createSlice({
   },
 });
 
-export const { CALC_STORE_VALUE, CALC_OUTOFSTOCK, CALC_CATEGORY } =
+export const { CALC_STORE_VALUE, CALC_OUTOFSTOCK, CALC_CATEGORY, CALC_EXPIRED_PRODUCTS } =
   productSlice.actions;
 
 export const selectIsLoading = (state) => state.product.isLoading;
@@ -244,5 +258,7 @@ export const selectProduct = (state) => state.product.product;
 export const selectTotalStoreValue = (state) => state.product.totalStoreValue;
 export const selectOutOfStock = (state) => state.product.outOfStock;
 export const selectCategory = (state) => state.product.category;
+export const selectExpiredProducts = (state) => state.product.expired_products;
+
 
 export default productSlice.reducer;

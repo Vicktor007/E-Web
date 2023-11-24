@@ -20,6 +20,7 @@ import EditProduct from "./pages/editProduct/EditProduct";
 import Profile from "./pages/profile/Profile";
 import EditProfile from "./pages/profile/EditProfile";
 import Contact from "./pages/contact/Contact";
+import About from "./pages/about/About";
 
 axios.defaults.withCredentials = true;
 
@@ -38,7 +39,19 @@ function App() {
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
+
+        <Route
+          path="/"
+          element={
+            <Sidebar>
+              
+              <Home />
+              
+            </Sidebar>
+          }
+        />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
@@ -104,6 +117,18 @@ function App() {
             </Sidebar>
           }
         />
+
+<Route
+          path="/about"
+          element={
+            <Sidebar>
+              <Layout>
+                <About />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
         <Route
           path="/contact-us"
           element={

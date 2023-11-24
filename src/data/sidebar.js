@@ -15,17 +15,8 @@ const menu = [
   {
     title: "Account",
     icon: <FaRegChartBar />,
-    childrens: [
-      {
-        title: "Profile",
         path: "/profile",
       },
-      {
-        title: "Edit Profile",
-        path: "/edit-profile#top",
-      },
-    ],
-  },
   {
     title: "Report Bug",
     icon: <FaCommentAlt />,
@@ -34,3 +25,4 @@ const menu = [
 ];
 
 export default menu;
+

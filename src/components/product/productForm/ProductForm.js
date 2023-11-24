@@ -1,22 +1,18 @@
 import React from "react";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
 import Card from "../../card/Card";
+
 
 import "./ProductForm.scss";
 
 const ProductForm = ({
   product,
-  productImage,
   imagePreview,
-  // description,
-  // setDescription,
   handleInputChange,
   handleImageChange,
   saveProduct,
 }) => {
   return (
-    <div className="add-product">
+    <div className="add-product displayflex">
       <Card cardClass={"card"}>
         <form onSubmit={saveProduct}>
           <Card cardClass={"group"}>
@@ -73,6 +69,22 @@ const ProductForm = ({
             value={product?.quantity}
             onChange={handleInputChange}
           />
+          <label>Production Date:</label>
+          <input
+            type="text"
+            placeholder="YYYY-MM-DD"
+            name="production_date"
+            value={product?.production_date}
+            onChange={handleInputChange}
+          />
+          <label>Expiry Date:</label>
+          <input
+            type="text"
+            placeholder="YYYY-MM-DD"
+            name="expiry_date"
+            value={product?.expiry_date}
+            onChange={handleInputChange}
+          />
           <label>Product Description:</label>
             <textarea
               cols="30"
@@ -81,25 +93,9 @@ const ProductForm = ({
               placeholder="Product Description"
               value={product?.description}
               onChange={handleInputChange}
+              style={{width: "100%"}}
             ></textarea>
-          {/* <label>Product Description:</label>
-          <input
-            type="text"
-            placeholder="Product Description"
-            name="description"
-            value={product?.description}
-            onChange={handleInputChange}
-          /> */}
-
-          {/* <label>Product Description:</label>
-          <ReactQuill
-            theme="snow"
-            value={description}
-            onChange={setDescription}
-            modules={ProductForm.modules}
-            formats={ProductForm.formats}
-          /> */}
-
+          
           <div className="--my">
             <button type="submit" className="--btn --btn-primary">
               Save Product
@@ -111,41 +107,6 @@ const ProductForm = ({
   );
 };
 
-// ProductForm.modules = {
-//   toolbar: [
-//     [{ header: "1" }, { header: "2" }, { font: [] }],
-//     [{ size: [] }],
-//     ["bold", "italic", "underline", "strike", "blockquote"],
-//     [{ align: [] }],
-//     [{ color: [] }, { background: [] }],
-//     [
-//       { list: "ordered" },
-//       { list: "bullet" },
-//       { indent: "-1" },
-//       { indent: "+1" },
-//     ],
-//     ["clean"],
-//   ],
-// };
-// ProductForm.formats = [
-//   "header",
-//   "font",
-//   "size",
-//   "bold",
-//   "italic",
-//   "underline",
-//   "strike",
-//   "blockquote",
-//   "color",
-//   "background",
-//   "list",
-//   "bullet",
-//   "indent",
-//   "link",
-//   "video",
-//   "image",
-//   "code-block",
-//   "align",
-// ];
+
 
 export default ProductForm;

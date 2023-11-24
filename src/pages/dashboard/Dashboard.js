@@ -31,7 +31,7 @@ const Dashboard = () => {
   }, [isLoggedIn, isError, message, dispatch]);
 
   return (
-    <div>
+    <div className="--pad">
       <ProductSummary products={products} />
       <ProductList products={products} isLoading={isLoading} />
     </div>
