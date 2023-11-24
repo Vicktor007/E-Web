@@ -14,6 +14,7 @@ import {
 } from "../../../redux/features/product/productSlice";
 import { Link, NavLink } from "react-router-dom";
 import { FILTER_PRODUCTS, selectFilteredProducts } from "../../../redux/features/product/filterSlice";
+import moment from 'moment';
 
 
 
@@ -117,10 +118,11 @@ const ProductList = ({ products, isLoading }) => {
 
               <tbody>
                 {currentItems.map((product, index) => {
-                  const { _id, name, category, price, quantity } = product;
+                  const { _id, name, category, price, quantity, expiry_date } = product;
+                  const isExpired = moment().isAfter(moment(expiry_date));
                   return (
                     
-                    <tr key={_id}>
+                    <tr key={_id} style={{ backgroundColor: isExpired ? 'brown' : 'transparent'}}>
                        <td>{index + 1}</td>
                       {/* <td>{shortenText(name, 16)}</td> */}
                       <td><NavLink to={`/product-detail/${_id}`}>{name ? shortenText(name, 16) : ''}</NavLink></td>
