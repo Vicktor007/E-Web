@@ -122,7 +122,7 @@ const ProductList = ({ products, isLoading }) => {
                   const isExpired = moment().isAfter(moment(expiry_date));
                   return (
                     
-                    <tr key={_id} style={{ backgroundColor: isExpired ? 'brown' : 'transparent'}}>
+                    <tr key={_id} style={{ backgroundColor: isExpired ? '#c41849' : 'transparent'}}>
                        <td>{index + 1}</td>
                       {/* <td>{shortenText(name, 16)}</td> */}
                       <td><NavLink to={`/product-detail/${_id}`}>{name ? shortenText(name, 16) : ''}</NavLink></td>
@@ -136,7 +136,7 @@ const ProductList = ({ products, isLoading }) => {
                         {"$"}
                         {price * quantity}
                       </td>
-                      <td className="icons">
+                      <td className="icons bgw">
                         <span>
                           <Link to={`/product-detail/${_id}`}>
                             <AiOutlineEye size={25} color={"purple"} />
